@@ -1,0 +1,38 @@
+# models/jags/pk_onecpt_inf.jags
+model {
+  for (i in 1:N) {
+    y[i] ~ dnorm(pred[i], tau_obs)
+    pred[i] <- conc_i(t[i], CL, Vc, dose, tinf, tau, n_doses)
+  }
+  # Priors (lognormal)
+  logCL ~ dnorm(mu[1], pow(sd[1], -2))
+  logVc ~ dnorm(mu[2], pow(sd[2], -2))
+  CL <- exp(logCL)
+  Vc <- exp(logVc)
+  tau_obs <- pow(sigma, -2)
+  sigma ~ dunif(0.01, 10)
+
+  # deterministic function for 1C infusion
+  # (implemented via loops in BUGS language)
+  # Contribution of a single dose:
+  # during infusion: (R/(k*V))*(1-exp(-k*dt))
+  # after infusion:  (R/(k*V))*(1-exp(-k*tinf))*exp(-k*(dt-tinf))
+  function conc_one(t, CL, Vc, dose, tinf, t0) {
+    k <- CL / Vc
+    R <- dose / tinf
+    dt <- t - t0
+    res <- 0
+    if (dt > 0 && dt <= tinf) { res <- (R / (k * Vc)) * (1 - exp(-k * dt)) }
+    if (dt > tinf) { res <- (R / (k * Vc)) * (1 - exp(-k * tinf)) * exp(-k * (dt - tinf)) }
+    return(res)
+  }
+
+  function conc_i(t, CL, Vc, dose, tinf, tau, n_doses) {
+    acc <- 0
+    for (j in 0:(n_doses-1)) {
+      t0 <- 0 + j * tau
+      acc <- acc + conc_one(t, CL, Vc, dose, tinf, t0)
+    }
+    return(acc)
+  }
+}

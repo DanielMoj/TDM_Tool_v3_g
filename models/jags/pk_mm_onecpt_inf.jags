@@ -1,0 +1,67 @@
+
+# models/jags/pk_mm_onecpt_inf.jags
+model {
+  # Observation model with BLQ using dinterval; y can be NA for BLQ
+  for (n in 1:N) {
+    # predicted concentration at time t[n]
+    pred[n] <- conc_mm(t[n], CL, Vc, Vmax, Km, dose, tinf, tau, n_doses, dt, Mgrid)
+
+    # error model per-observation SD
+    mu_y[n] <- pred[n]
+    sig_add_use[n] <- sigma_add
+    sig_prop_use[n] <- sigma_prop * max(pred[n], 1.0E-6)
+    sig_comb[n] <- sqrt(pow(sigma_add, 2) + pow(sigma_prop * max(pred[n], 1.0E-6), 2))
+    is_add <- equals(error_model, 1)
+    is_prop <- equals(error_model, 2)
+    is_comb <- equals(error_model, 3)
+    sigma_n[n] <- is_add * sig_add_use[n] + is_prop * sig_prop_use[n] + is_comb * sig_comb[n]
+    tau_n[n] <- pow(max(sigma_n[n], 1.0E-6), -2)
+
+    # Censoring via dinterval: cens[n]==1 if BLQ, ==2 if observed
+    cens[n] ~ dinterval(y[n], cut[n])
+    y[n] ~ dnorm(mu_y[n], tau_n[n])
+  }
+
+  # Priors on log-scale (lognormal)
+  logCL ~ dnorm(mu_log_CL, pow(sd_log_CL, -2))
+  logVc ~ dnorm(mu_log_Vc, pow(sd_log_Vc, -2))
+  logVmax ~ dnorm(mu_log_Vmax, pow(sd_log_Vmax, -2))
+  logKm ~ dnorm(mu_log_Km, pow(sd_log_Km, -2))
+
+  CL <- exp(logCL)
+  Vc <- exp(logVc)
+  Vmax <- exp(logVmax)
+  Km <- exp(logKm)
+
+  # Error parameters (weakly informative)
+  sigma_add ~ dunif(0.001, 50)
+  sigma_prop ~ dunif(0.0, 2.0)
+
+  # Utility: total infusion rate at time s (mg/h)
+  function rate_total(s, dose, tinf, tau, n_doses) {
+    R <- 0
+    for (j in 0:(n_doses-1)) {
+      t0 <- 0 + j * tau
+      if (s >= t0 && s < (t0 + tinf)) { R <- R + dose / max(tinf, 1.0E-6) }
+    }
+    return(R)
+  }
+
+  # Concentration via forward Euler on amount A (mg)
+  # dA/dt = rate - CL * C - Vmax * C / (Km + C)
+  function conc_mm(t, CL, Vc, Vmax, Km, dose, tinf, tau, n_doses, dt, Mgrid) {
+    A <- 0
+    s <- 0
+    for (k in 1:Mgrid) {
+      s <- (k-1) * dt
+      if (s < t) {
+        C <- A / Vc
+        R <- rate_total(s, dose, tinf, tau, n_doses)
+        elim <- CL * C + Vmax * C / (Km + C)
+        A <- A + dt * (R - elim)
+        if (A < 0) { A <- 0 }
+      }
+    }
+    return(A / Vc)
+  }
+}

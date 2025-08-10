@@ -1,0 +1,52 @@
+---
+title: "TDMx-Open Advanced Report"
+output: pdf_document
+params:
+  user: "guest"
+  timestamp: "now"
+  drug: "Meropenem"
+  model_type: "1C"
+  error_model: "kombiniert"
+  regimen: !r list()
+  covariates: !r list()
+  posterior_summary: !r list()
+  draws_head: !r data.frame()
+---
+
+> **Hinweis:** Demobericht. Keine klinische Anwendung.
+
+**Erstellt von:** `r params$user`  
+**Zeitpunkt:** `r params$timestamp`
+
+## Fall-Setup
+
+- **Wirkstoff:** `r params$drug`  
+- **Modell:** `r params$model_type`  
+- **Fehler:** `r params$error_model`  
+
+### Dosierung
+```{r, echo=FALSE}
+knitr::kable(as.data.frame(params$regimen), col.names = c("Dosis (mg)","τ (h)","Infusionsdauer (h)","Anzahl Gaben","Start (h)"))
+```
+
+### Kovariaten
+```{r, echo=FALSE}
+knitr::kable(as.data.frame(params$covariates), col.names = c("Alter","Gewicht","CrCL"))
+```
+
+## Posterior-Zusammenfassung
+```{r, echo=FALSE}
+ps <- params$posterior_summary
+df <- data.frame(Parameter = names(ps$median),
+                 Median = round(unname(ps$median),3),
+                 `2.5%` = round(unname(ps$q2.5),3),
+                 `97.5%` = round(unname(ps$q97.5),3))
+knitr::kable(df)
+```
+
+## Draws (erste 10 Zeilen)
+```{r, echo=FALSE}
+knitr::kable(params$draws_head)
+```
+
+*Ende des Berichts.*

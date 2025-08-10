@@ -1,0 +1,67 @@
+model {
+  # Priors (log-scale)
+  logCL   ~ dnorm(mu_logCL,  tau_logCL)
+  logVc   ~ dnorm(mu_logVc,  tau_logVc)
+  logKint ~ dnorm(mu_logKint, tau_logKint)
+  logRtot ~ dnorm(mu_logRtot, tau_logRtot)
+  logKss  ~ dnorm(mu_logKss,  tau_logKss)
+
+  CL   <- exp(logCL)
+  Vc   <- exp(logVc)
+  kint <- exp(logKint)
+  Rtot <- exp(logRtot)
+  Kss  <- exp(logKss)
+
+  # Residual error parameters
+  sigma_add_free ~ dunif(1.0E-6, 1000)
+  sigma_add <- est_sigma * sigma_add_free + (1 - est_sigma) * sigma_init
+  tau_add <- pow(sigma_add, -2)
+  sigma_prop ~ dunif(0, 5)
+  # t df
+  nu ~ dunif(2, 60)
+  # Mixture (two normals)
+  pi_mix ~ dbeta(pi_mix_alpha, pi_mix_beta)
+  kappa ~ dunif(1.0, 10.0)
+  tau_mix1 <- tau_add
+  tau_mix2 <- pow(sigma_add * kappa, -2)
+
+  # ODE (Euler) over adaptive grid
+  C[1] <- C0
+  for (i in 1:(Nt - 1)) {
+    input <- rate[i] / Vc
+    elim_lin <- (CL / Vc) * C[i]
+    elim_tmdd <- (kint * Rtot / Vc) * C[i] / (Kss + C[i])
+    dCdt <- input - elim_lin - elim_tmdd
+    C[i+1] <- max(1.0E-12, C[i] + dt[i] * dCdt)
+  }
+
+  # Observation model; y contains NA for censored points
+  for (n in 1:N) {
+    mu[n] <- C[idx[n]]
+    if (error_model == 1) {
+      is_int[n] ~ dinterval(y[n], lloq[n])
+      y[n] ~ dnorm(mu[n], tau_add)
+    } else if (error_model == 2) {
+      tau_n[n] <- pow(sigma_prop * mu[n] + 1.0E-12, -2)
+      is_int[n] ~ dinterval(y[n], lloq[n])
+      y[n] ~ dnorm(mu[n], tau_n[n])
+    } else if (error_model == 3) {
+      sigma_c[n] <- sqrt(pow(sigma_add,2) + pow(sigma_prop * mu[n], 2))
+      tau_n[n] <- pow(sigma_c[n], -2)
+      is_int[n] ~ dinterval(y[n], lloq[n])
+      y[n] ~ dnorm(mu[n], tau_n[n])
+    } else if (error_model == 4) {
+      is_int[n] ~ dinterval(y[n], lloq[n])
+      y[n] ~ dt(mu[n], tau_add, nu)
+    } else if (error_model == 5) {
+      tau_n[n] <- pow(sigma_prop * mu[n] + 1.0E-12, -2)
+      is_int[n] ~ dinterval(y[n], lloq[n])
+      y[n] ~ dt(mu[n], tau_n[n], nu)
+    } else {
+      z[n] ~ dbern(pi_mix)
+      tau_z[n] <- equals(z[n],0) * tau_mix1 + equals(z[n],1) * tau_mix2
+      is_int[n] ~ dinterval(y[n], lloq[n])
+      y[n] ~ dnorm(mu[n], tau_z[n])
+    }
+  }
+}
