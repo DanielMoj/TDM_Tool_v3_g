@@ -1,0 +1,118 @@
+[
+  {
+    "file": "README.md",
+    "hits": 7
+  },
+  {
+    "file": "README_PHASE0.md",
+    "hits": 8
+  },
+  {
+    "file": "config/targets.json",
+    "hits": 3
+  },
+  {
+    "file": "config/users.yaml",
+    "hits": 1
+  },
+  {
+    "file": "docs/AI_HANDOFF.md",
+    "hits": 5
+  },
+  {
+    "file": "docs/API.md",
+    "hits": 2
+  },
+  {
+    "file": "docs/ARCHITECTURE.md",
+    "hits": 12
+  },
+  {
+    "file": "docs/CHANGELOG.md",
+    "hits": 6
+  },
+  {
+    "file": "docs/CONFIGURATION.md",
+    "hits": 14
+  },
+  {
+    "file": "docs/CONTRIBUTING.md",
+    "hits": 1
+  },
+  {
+    "file": "docs/DATAFLOW.md",
+    "hits": 7
+  },
+  {
+    "file": "docs/DB_SCHEMA.md",
+    "hits": 5
+  },
+  {
+    "file": "docs/DEPLOYMENT.md",
+    "hits": 2
+  },
+  {
+    "file": "docs/DIAGNOSTICS.md",
+    "hits": 3
+  },
+  {
+    "file": "docs/EHR_LIS.md",
+    "hits": 1
+  },
+  {
+    "file": "docs/ERROR_MODELS.md",
+    "hits": 11
+  },
+  {
+    "file": "docs/GLOSSARY.md",
+    "hits": 7
+  },
+  {
+    "file": "docs/KNOWN_LIMITATIONS.md",
+    "hits": 7
+  },
+  {
+    "file": "docs/MODELS_PK.md",
+    "hits": 9
+  },
+  {
+    "file": "docs/OPTIMIZATION.md",
+    "hits": 1
+  },
+  {
+    "file": "docs/PERFORMANCE.md",
+    "hits": 5
+  },
+  {
+    "file": "docs/PRIORS_SCHEMA.md",
+    "hits": 3
+  },
+  {
+    "file": "docs/REPORTS.md",
+    "hits": 2
+  },
+  {
+    "file": "docs/ROADMAP.md",
+    "hits": 2
+  },
+  {
+    "file": "docs/SECURITY.md",
+    "hits": 2
+  },
+  {
+    "file": "docs/SETUP.md",
+    "hits": 6
+  },
+  {
+    "file": "docs/TARGETS_PTA_CFR.md",
+    "hits": 5
+  },
+  {
+    "file": "docs/TROUBLESHOOTING.md",
+    "hits": 5
+  },
+  {
+    "file": "models/stan/pk_multicpt_ode.stan",
+    "hits": 11
+  }
+]

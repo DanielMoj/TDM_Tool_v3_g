@@ -1,0 +1,19 @@
+{
+  "Meropenem": {
+    "metric": "fT>MIC",
+    "threshold": 0.5,
+    "window": "tau",
+    "notes": "Platzhalter; fT>MIC \u226550%"
+  },
+  "Vancomycin": {
+    "metric": "AUC24/MIC",
+    "threshold_min": 400.0,
+    "threshold_max": 600.0,
+    "notes": "Platzhalter; 400\u2013600 angestrebt"
+  },
+  "Aminoglycoside_Generic": {
+    "metric": "Cmax/MIC",
+    "threshold": 8.0,
+    "notes": "Platzhalter; Ziel \u22658"
+  }
+}

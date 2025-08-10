@@ -1,0 +1,7 @@
+{
+  "vanco_aki_logit": {
+    "alpha": -7.0,
+    "beta": 0.004,
+    "note": "Default demo parameters. Replace with site-calibrated coefficients."
+  }
+}

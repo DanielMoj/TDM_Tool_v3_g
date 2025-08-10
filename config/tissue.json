@@ -1,0 +1,20 @@
+{
+  "default": {
+    "Plasma": 1.0,
+    "ELF": 0.6,
+    "Bone": 0.3,
+    "CSF": 0.2
+  },
+  "Meropenem": {
+    "Plasma": 1.0,
+    "ELF": 0.7,
+    "Bone": 0.2,
+    "CSF": 0.2
+  },
+  "Vancomycin": {
+    "Plasma": 1.0,
+    "ELF": 0.4,
+    "Bone": 0.2,
+    "CSF": 0.1
+  }
+}

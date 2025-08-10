@@ -1,0 +1,12 @@
+
+users:
+  - username: admin
+    role: admin
+    # password_hash: "<argon2-hash-hier>"  # erzeugen via auth_upgrade_hashes()
+    password: "admin123"  # Demo, bitte via auth_upgrade_hashes() in password_hash konvertieren und dann löschen!
+  - username: doc
+    role: clinician
+    password: "doc123"
+  - username: view
+    role: viewer
+    password: "view123"

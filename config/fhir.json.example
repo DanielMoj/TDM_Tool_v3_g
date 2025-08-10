@@ -1,0 +1,6 @@
+{
+  "base_url": "https://your-fhir-server.example/fhir",
+  "auth": "bearer",
+  "token_env": "FHIR_BEARER_TOKEN",
+  "loinc_source": "http://loinc.org"
+}

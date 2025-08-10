@@ -1,0 +1,22 @@
+{
+  "tdm": {
+    "Vancomycin": [
+      "20578-1"
+    ],
+    "Gentamicin": [
+      "3663-2"
+    ]
+  },
+  "mic": {
+    "Meropenem": [],
+    "Vancomycin": []
+  },
+  "units": {
+    "mg/L": 1.0,
+    "ug/mL": 1.0,
+    "\u00b5g/mL": 1.0,
+    "mcg/mL": 1.0,
+    "mg/dL": 10.0,
+    "mcg/dL": 0.1
+  }
+}

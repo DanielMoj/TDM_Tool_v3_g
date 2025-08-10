@@ -1,0 +1,26 @@
+
+roles:
+  admin:
+    allow:
+      - fit_run
+      - optimize_run
+      - regimen_apply
+      - report_export
+      - ehr_fetch
+      - ehr_adopt
+      - cfr_import
+      - cfr_use
+      - admin_config
+  clinician:
+    allow:
+      - fit_run
+      - optimize_run
+      - regimen_apply
+      - report_export
+      - ehr_fetch
+      - ehr_adopt
+      - cfr_use
+  viewer:
+    allow:
+      - ehr_fetch
+      - cfr_use

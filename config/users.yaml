@@ -1,0 +1,11 @@
+# DEMO! Nicht für Produktion.
+users:
+  - username: admin
+    password: "admin123"
+    role: "admin"
+  - username: clinician
+    password: "test123"
+    role: "clinician"
+  - username: view
+    password: "view123"
+    role: "viewer"

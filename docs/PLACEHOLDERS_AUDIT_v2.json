@@ -1,0 +1,142 @@
+[
+  {
+    "file": "README.md",
+    "hits": 8
+  },
+  {
+    "file": "README_PHASE0.md",
+    "hits": 6
+  },
+  {
+    "file": "config/risk_models.json",
+    "hits": 2
+  },
+  {
+    "file": "config/targets.json",
+    "hits": 3
+  },
+  {
+    "file": "config/users.yaml",
+    "hits": 1
+  },
+  {
+    "file": "db/migrations/001_init.sql",
+    "hits": 2
+  },
+  {
+    "file": "db/migrations/002_versioning.sql",
+    "hits": 3
+  },
+  {
+    "file": "db/migrations/003_audit.sql",
+    "hits": 2
+  },
+  {
+    "file": "docs/AI_HANDOFF.md",
+    "hits": 4
+  },
+  {
+    "file": "docs/API.md",
+    "hits": 2
+  },
+  {
+    "file": "docs/ARCHITECTURE.md",
+    "hits": 13
+  },
+  {
+    "file": "docs/CHANGELOG.md",
+    "hits": 16
+  },
+  {
+    "file": "docs/CONFIGURATION.md",
+    "hits": 12
+  },
+  {
+    "file": "docs/CONTRIBUTING.md",
+    "hits": 1
+  },
+  {
+    "file": "docs/DATAFLOW.md",
+    "hits": 9
+  },
+  {
+    "file": "docs/DB_SCHEMA.md",
+    "hits": 7
+  },
+  {
+    "file": "docs/DEPLOYMENT.md",
+    "hits": 2
+  },
+  {
+    "file": "docs/DIAGNOSTICS.md",
+    "hits": 3
+  },
+  {
+    "file": "docs/EHR_LIS.md",
+    "hits": 3
+  },
+  {
+    "file": "docs/ERROR_MODELS.md",
+    "hits": 11
+  },
+  {
+    "file": "docs/GLOSSARY.md",
+    "hits": 8
+  },
+  {
+    "file": "docs/KNOWN_LIMITATIONS.md",
+    "hits": 7
+  },
+  {
+    "file": "docs/MODELS_PK.md",
+    "hits": 8
+  },
+  {
+    "file": "docs/OPTIMIZATION.md",
+    "hits": 1
+  },
+  {
+    "file": "docs/PERFORMANCE.md",
+    "hits": 7
+  },
+  {
+    "file": "docs/PLACEHOLDERS_AUDIT.md",
+    "hits": 337
+  },
+  {
+    "file": "docs/PLACEHOLDERS_AUDIT_SUMMARY.json",
+    "hits": 1
+  },
+  {
+    "file": "docs/PRIORS_SCHEMA.md",
+    "hits": 1
+  },
+  {
+    "file": "docs/REPORTS.md",
+    "hits": 2
+  },
+  {
+    "file": "docs/ROADMAP.md",
+    "hits": 6
+  },
+  {
+    "file": "docs/SECURITY.md",
+    "hits": 7
+  },
+  {
+    "file": "docs/SETUP.md",
+    "hits": 2
+  },
+  {
+    "file": "docs/TARGETS_PTA_CFR.md",
+    "hits": 4
+  },
+  {
+    "file": "docs/TROUBLESHOOTING.md",
+    "hits": 6
+  },
+  {
+    "file": "models/stan/pk_multicpt_ode.stan",
+    "hits": 13
+  }
+]
